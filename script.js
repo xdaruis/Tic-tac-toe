@@ -49,13 +49,15 @@ function isWinner() {
         }
         if (isXWinner === 1) {
             document.getElementById("playerMove").innerHTML = "Player X Wins";
-            gameState = 0
+            gameState = 0;
+            break;
         } else if (isOWinner === 1) {
             document.getElementById("playerMove").innerHTML = "Player O Wins";
             gameState = 0;
+            break;
         }
     }
-    if (--totalMoves === 0 && (isOWinner === 0 || isXWinner === 0)) {
+    if (--totalMoves === 0 && isOWinner === 0 && isXWinner === 0) {
         gameState = 0;
         document.getElementById("playerMove").innerHTML = "Draw";
     }
