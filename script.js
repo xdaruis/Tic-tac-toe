@@ -35,12 +35,8 @@ function isWinner() {
     for (let i = 0; i < 8; ++i) {
         isXWinner = 1;
         isOWinner = 1;
-        // console.log(xSpots);
-        // console.log(oSpots);
         for (let j = 0; j < 3; ++j) {
             if (!xSpots.includes(winnerCombos[i][j])) {
-                // console.log(winnerCombos[i][j]);
-                // console.log(!xSpots.includes(winnerCombos[i][j]));
                 isXWinner = 0;
             }
             if (!oSpots.includes(winnerCombos[i][j])) {
