@@ -14,6 +14,13 @@ const winnerCombos = [
     [3, 5, 7],
 ];
 
+const dict = {
+    "X": "O",
+    "O": "X",
+    "movesX": xSpots,
+    "movesO": oSpots
+};
+
 function resetGame() {
     for (let i = 1; i <= 9; ++i) {
         document.getElementById(i).innerHTML = "&nbsp;&nbsp;";
@@ -27,37 +34,19 @@ function resetGame() {
     document.getElementById("playerMove").innerHTML = "Player " + player + " Move";
 }
 
-function isWinner(player) {
-    let isXWinner, isOWinner;
-    if (player == "O") {
-        for (let i = 0; i < 8; ++i) {
-            isXWinner = 1;
-            for (let j = 0; j < 3; ++j) {
-                if (!xSpots.includes(winnerCombos[i][j])) {
-                    isXWinner = 0;
-                    break;
-                }
-            }
-            if (isXWinner === 1) {
-                document.getElementById("playerMove").innerHTML = "Player X Wins😍";
-                gameState = 0;
+function isWinner() {
+    for (let i = 0; i < 8; ++i) {
+        let isWinner = 1;
+        for (let j = 0; j < 3; ++j) {
+            if (!dict["moves" + player].includes(winnerCombos[i][j])) {
+                isWinner = 0;
                 break;
             }
         }
-    } else {
-        for (let i = 0; i < 8; ++i) {
-            isOWinner = 1;
-            for (let j = 0; j < 3; ++j) {
-                if (!oSpots.includes(winnerCombos[i][j])) {
-                    isOWinner = 0;
-                    break;
-                }
-            }
-            if (isOWinner === 1) {
-                document.getElementById("playerMove").innerHTML = "Player O Wins😍";
-                gameState = 0;
-                break;
-            }
+        if (isWinner === 1) {
+            document.getElementById("playerMove").innerHTML = "Player " + player + " Wins😍";
+            gameState = 0;
+            break;
         }
     }
     if (--totalMoves === 0 && gameState != 0) {
@@ -71,16 +60,8 @@ function markButton(element) {
         return;
     }
     element.innerHTML = player;
-    if (player === "X") {
-        xSpots.push(element.id - '0');
-    } else {
-        oSpots.push(element.id - '0');
-    }
-    if (player === "X") {
-        player = "O";
-    } else {
-        player = "X";
-    }
-    document.getElementById("playerMove").innerHTML = "Player " + player + " Move";
-    isWinner(player);
+    dict["moves" + player].push(element.id - '0');
+    document.getElementById("playerMove").innerHTML = "Player " + dict[player] + " Move";
+    isWinner();
+    player = dict[player];
 }
